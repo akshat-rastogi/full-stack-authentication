@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  title: Dev Exercises
+  description: This is a mocked API for developer tests
+  contact:
+    email: marc.mcloughlin@fiserv.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0-oas3
+servers:
+- url: https://test.emea.api.fiservapps.com/
+paths:
+  /dev-exercises/apigateway/{userId}/apikeys:
+    get:
+      tags:
+      - developerAPIKeys
+      summary: Returns a set of API keys for specific developer
+      description: |
+        By passing in the userId for a developer the API keys for that developer will be returned.
+      operationId: getDeveloperAPIkeys
+      parameters:
+      - name: userId
+        in: path
+        description: userId for the specific developer.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: returns API Keys for Developer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeveloperAPIKey'
+        "400":
+          description: bad input parameter
+components:
+  securitySchemes:
+    ApiKeyAuth:     
+      type: apiKey
+      in: header       
+      name: x-api-key
+  schemas:
+    DeveloperAPIKey:
+      required:
+      - appType
+      - createdDate
+      - id
+      - key
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        name:
+          type: string
+          example: Payment App
+        appType:
+          type: string
+          enum:
+          - sandbox
+          - production
+        key:
+          type: string
+          example: e1a0998a-3e7f-40b2-a2b1-7d0cfa9198d3
+        createdDate:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z

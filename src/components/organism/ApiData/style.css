@@ -1,0 +1,14 @@
+.api-data{
+    margin: 20px auto;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+.api-data thead tr th,
+.api-data tbody tr td{
+    padding: 15px;
+}
+
+.api-data thead tr,
+.api-data tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

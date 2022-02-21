@@ -1,0 +1,12 @@
+.register-form,
+.login-form {
+	width: 80%;
+	text-align: center;
+	margin: 6rem auto;
+	justify-content: center;
+	background: white;
+}
+.lead {
+	margin-top: 15px;
+	font-size: 25px;
+}
