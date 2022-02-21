@@ -12,6 +12,7 @@ const ApiData = ({ loadData, apidata: { loading, list, error } }) => {
   return (
     <>
       <h2>API DATA</h2>
+      {!!loading && <em>Loading . . .</em>}
       {!loading && !!list && !error && list.length > 0 && (
         <table className="api-data">
           <thead>

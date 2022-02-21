@@ -45,13 +45,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       <br />
       <form className="form" onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
-          <input
-            type="text"
-            placeholder="Company Name"
-            name="name"
-            value={name}
-            onChange={(e) => onChange(e)}
-          />
+          <input type="text" placeholder="Company Name" name="name" value={name} onChange={(e) => onChange(e)} />
         </div>
         <div className="form-group">
           <input
@@ -63,13 +57,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           />
         </div>
         <div className="form-group">
-          <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            value={email}
-            onChange={(e) => onChange(e)}
-          />
+          <input type="email" placeholder="Email Address" name="email" value={email} onChange={(e) => onChange(e)} />
         </div>
         <div className="form-group">
           <input

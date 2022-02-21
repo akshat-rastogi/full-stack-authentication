@@ -66,11 +66,7 @@ export const register =
     const body = JSON.stringify({ name, phonenumber, email, password });
 
     try {
-      const res = await axios.post(
-        "http://localhost:8080/users/",
-        body,
-        config
-      );
+      const res = await axios.post("http://localhost:8080/users/", body, config);
 
       dispatch({
         type: REGISTER_SUCCESS,
@@ -102,11 +98,7 @@ export const login = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await axios.post(
-      "http://localhost:8080/users/auth",
-      body,
-      config
-    );
+    const res = await axios.post("http://localhost:8080/users/auth", body, config);
 
     dispatch({
       type: LOGIN_SUCCESS,
