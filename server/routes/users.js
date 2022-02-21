@@ -16,10 +16,7 @@ router.post(
     check("name", "Company name is required").not().isEmpty(),
     check("phonenumber", "Phone number is required").not().isEmpty(),
     check("email", "Please include a valid email").isEmail(),
-    check(
-      "password",
-      "Please enter password with 8 or more characters"
-    ).isLength({ min: 8 }),
+    check("password", "Please enter password with 8 or more characters").isLength({ min: 8 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -57,15 +54,10 @@ router.post(
         },
       };
 
-      jwt.sign(
-        payload,
-        process.env.JWT_SECRET,
-        { expiresIn: 360000 },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ token });
-        }
-      );
+      jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 360000 }, (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      });
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server error");
@@ -78,10 +70,7 @@ router.post(
 // @access  Public
 router.post(
   "/auth",
-  [
-    check("email", "Please include a valid email").isEmail(),
-    check("password", "Password is required").exists(),
-  ],
+  [check("email", "Please include a valid email").isEmail(), check("password", "Password is required").exists()],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -95,17 +84,13 @@ router.post(
       let user = await User.findOne({ email });
 
       if (!user) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: "Invalid Credentials" }] });
+        return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: "Invalid Credentials" }] });
+        return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
       }
 
       //Return jsonwebtoken
@@ -115,15 +100,10 @@ router.post(
         },
       };
 
-      jwt.sign(
-        payload,
-        process.env.JWT_SECRET,
-        { expiresIn: "5 days" },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ token });
-        }
-      );
+      jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "5 days" }, (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      });
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server error");
@@ -154,10 +134,7 @@ router.get("/data", auth, async (req, res) => {
     // make api call here and return the api
     if (user) {
       var response = await request({
-        url:
-          "https://test.emea.api.fiservapps.com/dev-exercises/apigateway/" +
-          user._id +
-          "/apikeys",
+        url: "https://test.emea.api.fiservapps.com/dev-exercises/apigateway/" + user._id + "/apikeys",
       });
       if (response.status === 200) res.json(response.data);
     } else {
